@@ -1,0 +1,29 @@
+.comentarios{
+    width: 400px;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    font-weight: bolder;
+    border: 3px solid yellow;
+    border-radius:10px ;
+
+}
+.comentarios *{
+    color: white;
+    background-color: black;
+    display: block;
+}
+.comentarios label{
+margin: 5px;
+}
+#form-comentarios, textarea, input{
+    display: block;
+    color:(184, 236, 255) ;
+background-color: rgb(201, 201, 201) ;
+border-radius: 5px;
+border: 1px solid red;
+}
+
+#form-comentarios .bnt-submit{
+    width: 100%;
+}
