@@ -11,6 +11,14 @@ server.use(bodyParser.json());
 
 const PORT = 7000;
 
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    port: process.env.DB_PORT,
+    password: process.env.PASSWORD,
+    database: process.env.DB_NAME
+})
+
 server.listen(PORT, () => {
     console.log(`O server está rodando em http://localhost${PORT}`)
 
