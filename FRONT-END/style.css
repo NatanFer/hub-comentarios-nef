@@ -24,6 +24,17 @@ body {
     margin-bottom: 10px;
 }
 
+#login-form *{
+margin-top: 10px;
+margin-bottom:5px ;
+}
+
+#login-form,
+#form-comentario{
+height: fit-content;
+margin-top: 15px;
+}
+
 #form-comentario textarea, input {
     display: block;
     color: rgb(17, 35, 41);
@@ -51,4 +62,17 @@ body {
     margin: 20px;
     background-color: #f5f5f5;
     border-radius: 10px;
+}
+
+.disabled{
+    display: none;
+}
+
+.comments{
+    transition: all 0.5s ease;
+}
+
+.comments-disable{
+    opacity: 0;
+    pointer-events: none;
 }
