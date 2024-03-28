@@ -1,7 +1,7 @@
 import { formatDate, darkColors, lightColors } from "../ultils.js";
 import { CommentService } from "../services/comment.service.js";
 import { Comment } from "../models/comment.models.js";
-
+import { LoginService } from "../services/login.services.js";
 
 const getInputComment = () => {
   return {
@@ -67,6 +67,7 @@ const loadComment = () => {
     });
 };
 
+
 const displayComment = (comments) => {
   const divFeed = document.getElementById("comment-feed");
   divFeed.innerHTML = ``;
@@ -98,6 +99,8 @@ const displayComment = (comments) => {
   });
 };
 
+
+
 const CommentComponent = {
   run: () => {
     const formComentario = document.getElementById("formComment");
@@ -108,4 +111,6 @@ const CommentComponent = {
   },
 };
 
-export { CommentComponent, setInputComment };
+
+
+export { CommentComponent, setInputComment};

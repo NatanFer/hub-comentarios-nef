@@ -76,3 +76,8 @@ margin-top: 15px;
     opacity: 0;
     pointer-events: none;
 }
+
+.container-fluid{
+    width: 500px !important;
+    display: flex;
+}
