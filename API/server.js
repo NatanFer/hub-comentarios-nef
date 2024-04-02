@@ -52,7 +52,16 @@ server.post("/login", (req, res) => {
 });
 
 server.get("/comment", (req, res) => {
-  db.query("SELECT * FROM comment", (err, result) => {
+  const queryByUser = `SELECT comment.id,
+  user.username as author,
+  comment.comment_text,
+  comment.created_at,
+  comment.updated_at
+  FROM comment
+  INNER JOIN user ON comment.userId= user.id
+  ORDER BY comment.updated_at DESC;`;
+
+  db.query(queryByUser, (err, result) => {
     if (err) {
       res.status(500).json({
         success: false,
@@ -65,12 +74,12 @@ server.get("/comment", (req, res) => {
 });
 //add comentario
 
-server.post("/new-comment", (req, res) => {
+server.post("/comment", (req, res) => {
   const { author, comment_text } = req.body;
   console.log(author, comment_text);
   db.query(
-    "INSERT INTO comment (author, comment_text) VALUES (?,?)",
-    [author, comment_text],
+    "INSERT INTO comment (userId, comment_text) VALUES (?,?)",
+    [userId, comment_text],
     (err, result) => {
       if (err) {
         res.status(500).json({

@@ -1,23 +1,33 @@
 class Comment {
-    constructor(id, author, comment_text,
+    constructor(id,userId, author, comment_text,
         created_at, update_at) {
-        if (id !== undefined, author !== undefined, comment_text !== undefined,
+        if (id !== undefined,userId!==undefined , author !== undefined, comment_text !== undefined,
             created_at !== undefined, update_at !== undefined) {
-
-
             this.id = id;
+            this.userId=userId;
             this.author = author;
             this.comment_text = comment_text;
             this.created_at = created_at;
             this.update_at = update_at;
+        } else if (userId !== undefined, comment_text !== undefined) {
+            this.id == null;
+            this.userId=userId;
+            this.author = null;
+            this.comment_text = comment_text;
+            this.created_at = null;
+            this.update_at = null;
+
         } else if (author !== undefined, comment_text !== undefined) {
             this.id == null;
+            this.userId=null;
             this.author = author;
             this.comment_text = comment_text;
-            this.created_at = created_at;
-            this.update_at = update_at;
+            this.created_at = null;
+            this.update_at = null;
+            
         } else {
             this.id = null;
+            this.userId=null;
             this.author = null;
             this.comment_text = null;
             this.created_at = null;
@@ -27,6 +37,10 @@ class Comment {
 
     getId() {
         return this.id;
+    }
+
+    getUserId() {
+        return this.userId;
     }
 
     getAuthor() {

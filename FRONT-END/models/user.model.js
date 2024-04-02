@@ -36,13 +36,10 @@ class User {
         this.username = username;
     }
 
-    getPassword() {
-        this.password = password;
-    }
-
     setPassword(password) {
         this.password = password;
     }
+    
     getFirstname() {
         return this.firstname;
     }

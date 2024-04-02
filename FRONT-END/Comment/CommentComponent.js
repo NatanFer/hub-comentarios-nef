@@ -53,6 +53,7 @@ const loadComment = () => {
         (comment) =>
           new Comment(
             comment.id,
+            comment.userId,
             comment.author,
             comment.comment_text,
             comment.created_at,
