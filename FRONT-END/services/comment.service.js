@@ -18,26 +18,47 @@ const CommentService = {
     });
 },
 apiPostComment: (comment) => {
-    return new Promise((resolve, reject) => {
-        fetch(`${URL_API}/new-comment`,{
+        return new Promise((resolve, reject) => {
+          fetch(`${URL_API}/comment`, {
             method: 'POST',
             headers: {
-              'Content-Type':'application/json'
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify(comment)
-        })
-      .then(response => response.json())
-      .then(data => {
-            if (data.success) {
-                resolve('Comentario inserido com sucesso');
-            } else {
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                resolve('Comentário inserido com sucesso');
+              } else {
                 reject(data.error);
-            }
-        })
-      .catch(error => {
-            reject('Erro na requisição AJAX', error);
+              }
+            })
+          .catch(error => {
+              reject('Erro na requisição AJAX:', error);
         });
     });
 }
 };
-export { CommentService }
+
+
+
+const userComment = {
+  apiGetComment: () => {
+      return new Promise((resolve, reject) => {
+          fetch(`${URL_API}/user-comment`)
+              .then((response) => response.json())
+              .then(data => {
+                  if (data.success) {
+                      resolve(data.comment);
+                  } else {
+                      reject(data.error);
+                  }
+      })
+      .catch(error => {
+          reject('Erro na requisição AJAX', error);
+      });
+  });
+},
+}
+export { CommentService, userComment }

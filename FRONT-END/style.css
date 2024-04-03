@@ -1,18 +1,17 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: gray;
 }
 
 .comments {
     text-align: left;
     width: 400px;
     max-width: 400px;
-    margin: 50px auto;
+    margin: 20px auto;
     padding: 20px;
     color: brown;
     font-weight: bolder;
+    /* border: 1px solid rgba(0, 0, 0, 0.2); */
     border-radius: 10px;
-    
 }
 
 .comments *{
@@ -24,28 +23,29 @@ body {
     margin-bottom: 10px;
 }
 
-#login-form *{
-margin-top: 10px;
-margin-bottom:5px ;
-}
-
-#login-form,
-#form-comentario{
-height: fit-content;
-margin-top: 15px;
-}
-
 #form-comentario textarea, input {
     display: block;
     color: rgb(17, 35, 41);
     border-radius: 5px;
-    border: 1px solid black;
+    border: none;
+    background-color: antiquewhite;
+    padding: 5px;
 }
 
-#form-comentario .btn-submit{
+.btn-submit{
     margin-top: 25px;
     padding: 10px;
     width: 100px;
+}
+
+#login-form * {
+ margin-top: 10px;
+ margin-bottom: 10px;
+}
+
+#login-form,
+#form-comentario{
+    height: fit-content;
 }
 
 #form-comentario form{
@@ -53,15 +53,10 @@ margin-top: 15px;
     padding: 10px auto 0px auto;
 }
 
-.date{
-    font-size: 9px;
-    text-align: right;
-}
-
-.col{
-    margin: 20px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
+.date-style{
+    display: inline;
+    font-size: smaller;
+    height: fit-content;
 }
 
 .disabled{
@@ -72,12 +67,45 @@ margin-top: 15px;
     transition: all 0.5s ease;
 }
 
-.comments-disable{
+.comments.disabled{
     opacity: 0;
     pointer-events: none;
 }
 
-.container-fluid{
-    width: 500px !important;
-    display: flex;
+.btn {
+    color:white;
+    background-color: rgb(100,42,42);
+}
+.feed{
+    max-height: 80vh;
+} 
+#comment-feed{
+    max-height: 60vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 10px auto 0px auto;
+}
+
+#comment-feed::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+}
+
+#comment-feed::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #c2c9d2;
+}
+
+header{
+    height: 10vh;
+    max-height: 10vh;
+}
+
+#user-profile {
+    float: right;
+    margin: 20px 20px auto auto !important;
+}
+
+#user-profile p{
+    margin: 5px 5px;
 }

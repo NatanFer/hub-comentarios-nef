@@ -2,47 +2,45 @@ import { formatDate, darkColors, lightColors } from "../ultils.js";
 import { CommentService } from "../services/comment.service.js";
 import { Comment } from "../models/comment.models.js";
 import { LoginService } from "../services/login.services.js";
+import { StorageServices } from "../services/localStorage.services.js";
 
-const getInputComment = () => {
-  return {
-    author: document.getElementById("inputAuthor"),
-    comment: document.getElementById("inputComment"),
-  };
+const getCommentInput = () => {
+  return document.getElementById("inputComment");
 };
-
-const setInputComment = (authorValue, commentValue) => {
-  const { author, comment } = getInputComment();
-  author.value = authorValue;
-  comment.value = commentValue;
-};
-
-const clearCommentField = () => {
-  const { comment } = getInputComment();
-  comment.value = "";
-};
-
 const getInputCommentValue = () => {
-  return {
-    author: document.getElementById("inputAuthor").value,
-    comment_text: document.getElementById("inputComment").value,
-  };
+  return document.getElementById("inputComment").value;
+};
+const setInputComment = (commentValue) => {
+  getCommentInput().value = commentValue;
+};
+const clearCommentField = () => {
+  getCommentInput().value = "";
+};
+
+const setAuthorCommentField = (usr) => {
+  const inputAuthor = document.getElementById("inputAuthor");
+  inputAuthor.value = usr.firstname + " " + usr.lastname;
+  inputAuthor.style.backgroundColor = "#444";
+  inputAuthor.style.color = "#FFF";
 };
 
 const submitComment = (event) => {
   event.preventDefault();
-  const comment = getInputCommentValue();
+
+  const comment = {
+    userId: StorageServices.user.get().getId(),
+    comment_text: getInputCommentValue(),
+  };
+
   CommentService.apiPostComment(comment)
     .then((result) => {
+      alert(result);
       clearCommentField();
       loadComment();
     })
     .catch((error) => {
       console.log(error);
     });
-
-  //requisção Post para enviar o comment
-
-
 };
 
 const loadComment = () => {
@@ -60,6 +58,7 @@ const loadComment = () => {
             comment.updated_at
           )
       );
+      console.log(comments);
       displayComment(comments);
     })
     .catch((error) => {
@@ -67,7 +66,6 @@ const loadComment = () => {
       alert(error);
     });
 };
-
 
 const displayComment = (comments) => {
   const divFeed = document.getElementById("comment-feed");
@@ -100,18 +98,12 @@ const displayComment = (comments) => {
   });
 };
 
-
-
 const CommentComponent = {
   run: () => {
     const formComentario = document.getElementById("formComment");
     formComentario.addEventListener("submit", submitComment);
-    window.onload = () => {
-      loadComment();
-    };
+    loadComment();
   },
 };
 
-
-
-export { CommentComponent, setInputComment};
+export { CommentComponent, setInputComment, setAuthorCommentField };

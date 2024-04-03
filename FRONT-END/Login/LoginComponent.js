@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import { LoginService } from "../services/login.services.js";
-import { StoragedItems } from "../services/localStorage.services.js";
+import { StorageServices } from "../services/localStorage.services.js";
+import{setAuthorCommentField} from "../Comment/CommentComponent.js";
 
 const getLoginInputs = () => {
   return {
@@ -10,72 +11,56 @@ const getLoginInputs = () => {
 };
 
 const handleShowHide = () => {
-  const newCommentTag = document.getElementById("form-comentario");
+  const newCommentTag = document.getElementById('form-comentario');
   const loginTag = document.getElementById("login-form");
-  if (newCommentTag.classList.contains("disabled")) {
-    newCommentTag.classList.remove("disabled");
-    loginTag.classList.add("disabled");
-  } else {
-    newCommentTag.classList.add("disabled");
-    loginTag.classList.remove("disabled");
+  const userProfile = document.getElementById('user-profile')
+ 
+  if (newCommentTag.classList.contains('disabled')) {
+    newCommentTag.classList.remove('disabled');
+    userProfile.classList.remove('disabled');
+    loginTag.classList.add('disabled');
+} else {
+    newCommentTag.classList.add('disabled');
+    userProfile.classList.add('disabled');
+    loginTag.classList.remove('disabled');
   }
 };
+
+const userProfileTitle = (name) => {
+  const aLink = document.getElementById("user-profile-title");
+  aLink.innerHTML = ``;
+  aLink.innerHTML = `<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+  <p class="small lh-sm text-gray-dark">
+      <strong class=" text-gray-dark dropdown-toggle">@${name}</strong>
+  </p>`;
+}
+
 
 const handleLogin = (event) => {
   event.preventDefault();
   const { username, password } = getLoginInputs();
 
-  _currentUser = new User(null, username.value, password.value);
+  const usr = new User(null, username.value, password.value)
 
-  LoginService.apiAuthUser(_currentUser)
-    .then((result) => {
-      _currentUser = new User(result);
-      _currentUser.setPassword(null);
-      userProfileTitle(_currentUser.getFirstname());
+  LoginService.apiAuthUser(usr).then(result => {
+
+      StorageServices.user.store(result);
+      const currentUser = StorageServices.user.get();
+
+
+      userProfileTitle(currentUser.getFirstname())
+      setAuthorCommentField(currentUser);
 
       const inputAuthor = document.getElementById("inputAuthor");
       inputAuthor.value = result.firstname + " " + result.lastname;
       inputAuthor.style.backgroundColor = "#444";
       inputAuthor.style.color = "#FFF";
-
-      const nav = document.getElementById("nav");
-      const menuNav = document.createElement("div");
-      menuNav.innerHTML = `
-            <div class="container-fluid">
-        <div class="navbar-brand" href="#">${username.value}</div> 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-             data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                <ul class="navbar-nav">
-                  <li class="nav-item dropdown">
-                    <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                      Menu
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                      <li id="dados"><a class="dropdown-item" href="#">Dados do usuario</a></li>
-                      <li id="retorno"><a class="dropdown-item" href="#">Sair</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          
-`;
-      nav.append(menuNav);
-
       handleShowHide();
     })
     .catch((error) => {
       alert(`Login invalido. Erro:${error.message}`);
     });
-  console.log(user);
-};
 
-const functButtom = () => {
-  const menuUsuario = document.getElementById("user-data");
-  menuUsuario.addEventListener();
 };
 
 const LoginComponent = {

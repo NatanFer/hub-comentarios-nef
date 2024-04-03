@@ -50,7 +50,7 @@ class User {
     }
 
     getLastname() {
-        this.lastname = lastname
+        return this.lastname
     }
 
     setLastname(lastname) {
