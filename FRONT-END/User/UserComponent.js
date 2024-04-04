@@ -31,6 +31,11 @@ fill="none">
 `;
 };
 
+const handleMeusComentarios=()=>{
+  const user = StorageServices.user.get().get()
+  UserService
+}
+
 const displayUserData = (user) => {
   const userContent = document.getElementById("user-content");
   userContent.innerHTML = ``;

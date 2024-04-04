@@ -127,7 +127,7 @@ server.post("/user-comment", (req, res) => {
       });
       return;
     }
-    res.json({ success: true, comment: result });
+    res.json({ success: true, comments: result });
   });
 });
 
