@@ -2,7 +2,7 @@ import { mapComments } from "../models/comment.models.js";
 
 apiPostComment: (userId) => {
     return new Promise((resolve, reject) => {
-      fetch(`${URL_API}/user-comments`, {
+      fetch(`${URL_API}/user-comments/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
