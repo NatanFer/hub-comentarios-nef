@@ -4,79 +4,79 @@ const CommentService = {
   apiGetComment: () => {
     return new Promise((resolve, reject) => {
       fetch(`${URL_API}/comment`)
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           if (data.success) {
             resolve(data.comment);
           } else {
             reject(data.error);
           }
         })
-        .catch((error) => {
-          reject("Erro na requisição AJAX:", error);
+        .catch(error => {
+          reject('Erro na requisição AJAX:', error);
         });
     });
   },
   apiGetCommentById(id) {
     return new Promise((resolve, reject) => {
       fetch(`${URL_API}/comment/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           if (data.success) {
             resolve(data.comment);
           } else {
             reject(data.error);
           }
         })
-        .catch((error) => {
-          reject("Erro na requisição AJAX:", error);
+        .catch(error => {
+          reject('Erro na requisição AJAX:', error);
         });
     });
   },
   apiPostComment: (comment) => {
     return new Promise((resolve, reject) => {
       fetch(`${URL_API}/comment`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(comment),
+        body: JSON.stringify(comment)
       })
-        .then((response) => response.json())
-        .then((data) => {
+      .then(response => response.json())
+      .then(data => {
           if (data.success) {
-            resolve("Comentário inserido com sucesso");
+            resolve('Comentário inserido com sucesso');
           } else {
             reject(data.error);
           }
         })
-        .catch((error) => {
-          reject("Erro na requisição AJAX:", error);
+      .catch(error => {
+          reject('Erro na requisição AJAX:', error);
         });
     });
   },
   apiUpdateComment: (comment) => {
     return new Promise((resolve, reject) => {
       fetch(`${URL_API}/comment/update`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(comment),
+        body: JSON.stringify(comment)
       })
-        .then((response) => response.json())
-        .then((data) => {
+      .then(response => response.json())
+      .then(data => {
           if (data.success) {
-            resolve("Comentário atualizado com sucesso");
+            resolve('Comentário atualizado com sucesso');
           } else {
             reject(data.error);
           }
         })
-        .catch((error) => {
-          reject("Erro na requisição AJAX:", error);
+      .catch(error => {
+          reject('Erro na requisição AJAX:', error);
         });
     });
-  },
+  }
 };
 
-export { CommentService };
+export {CommentService}

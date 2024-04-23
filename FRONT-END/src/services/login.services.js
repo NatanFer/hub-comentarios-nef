@@ -6,39 +6,32 @@ const LoginService = {
   apiAuthUser: (user) => {
     return new Promise((resolve, reject) => {
       fetch(`${URL_API}/login`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify(user)
       })
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           if (data.success) {
-            sessionStorage.setItem("token", data.token);
-            resolve("Usuario logado com sucesso");
+            sessionStorage.setItem('token', data.token);
+            resolve('Usuario logado com sucesso');
           } else {
             reject(data.error);
           }
         })
-        .catch((error) => {
-          reject("Erro na requisição de login. Error:", error);
+        .catch(error => {
+          reject('Erro na requisição de login. Error:', error);
         });
     });
   },
   getUserSession: () => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem('token');
     if (token) {
       const payload = decodeJWT(token);
       if (payload) {
-        const user = new User(
-          payload.id,
-          payload.username,
-          payload.password,
-          payload.firstname,
-          payload.lastname,
-          payload.imgLink
-        );
+        const user = new User(payload.id, payload.username, payload.password, payload.firstname, payload.lastname, payload.imgLink)
         return user;
       } else {
         return null;
@@ -46,12 +39,12 @@ const LoginService = {
     }
   },
   isLoggedIn: () => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem('token');
     if (!token) {
       return false;
     }
     try {
-      const tokenExpireTime = decodeJWT(token).exp * 1000;
+      const tokenExpireTime = (decodeJWT(token).exp * 1000);
       if (Date.now() >= tokenExpireTime) {
         return false;
       }
@@ -59,7 +52,8 @@ const LoginService = {
     } catch (error) {
       console.log(error);
     }
-  },
+
+  }
 };
 
-export default LoginService;
+export default LoginService
